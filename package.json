@@ -1,0 +1,26 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "URL Shortener",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skiing-gecko/url-shortener.git"
+  },
+  "author": "Harvey Balaam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skiing-gecko/url-shortener/issues"
+  },
+  "homepage": "https://github.com/skiing-gecko/url-shortener#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
