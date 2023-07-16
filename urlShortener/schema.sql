@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS urls;
+
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
+
+CREATE TABLE urls (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    creator_id INTEGER NOT NULL,
+    shortener_string TEXT UNIQUE NOT NULL,
+    originalUrl TEXT NOT NULL,
+    FOREIGN KEY (creator_id) REFERENCES user (id)
+);
