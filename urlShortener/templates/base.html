@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %} - Flaskr</title>
+    <title>{% block title %}{% endblock %} - Url Shortener</title>
 </head>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <h1>Flaskr</h1>
+  <h1>URL Shortener</h1>
   <ul>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
