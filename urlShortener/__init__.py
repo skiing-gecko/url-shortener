@@ -1,4 +1,4 @@
-"Create Flask application"
+"""Create Flask application"""
 
 # Based on Flask tutorial: https://flask.palletsprojects.com/en/2.3.x/tutorial/
 
@@ -7,7 +7,7 @@ from flask import Flask
 
 
 def create_app(test_config=None):
-    "Create Flask app"
+    """Create Flask app"""
 
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(

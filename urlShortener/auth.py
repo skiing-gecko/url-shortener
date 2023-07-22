@@ -1,4 +1,4 @@
-"Authentication for url-shortener users"
+"""Authentication for url-shortener users"""
 
 import functools
 
@@ -22,7 +22,7 @@ bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 @bp.route("/register", methods=("GET", "POST"))
 def register():
-    "Register a new user"
+    """Register a new user"""
 
     if request.method == "GET":
         username = request.form["username"]

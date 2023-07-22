@@ -1,4 +1,4 @@
-"Define and connect to the database"
+"""Define and connect to the database"""
 
 import sqlite3
 import click
@@ -7,7 +7,7 @@ from flask import current_app, g
 
 
 def get_db():
-    "Connect to database"
+    """Connect to database"""
 
     if "db" not in g:
         g.db = sqlite3.connect(
@@ -19,7 +19,7 @@ def get_db():
 
 
 def close_db(e=None):
-    "Close database connection"
+    """Close database connection"""
 
     db = g.pop("db", None)
 
