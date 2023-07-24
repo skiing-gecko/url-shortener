@@ -24,7 +24,7 @@ bp = Blueprint("auth", __name__, url_prefix="/auth")
 def register():
     """Register a new user"""
 
-    if request.method == "GET":
+    if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
 
