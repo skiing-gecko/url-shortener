@@ -19,6 +19,12 @@
                 <button type="submit" class="btn btn-primary mt-3">Register</button>
               </div>
             </form>
+            {% for message in get_flashed_messages() %}
+              <div class="alert alert-danger alert-dismissible show mt-3 mb-0" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            {% endfor %}
           </div>
         </div>
       </div>
