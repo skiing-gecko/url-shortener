@@ -26,7 +26,11 @@ def generate_random_suffix(length: int) -> str:
 
 @bp.route("/")
 def index():
-    return render_template("urls/index.html")
+    urls = get_db().execute(
+        "SELECT url.id, originalUrl, shortener_string, creator_id "
+        "FROM urls url JOIN user usr ON url.creator_id = usr.id "
+    ).fetchall()
+    return render_template("urls/index.html", urls=urls)
 
 
 @bp.route("/create", methods=("GET", "POST"))
