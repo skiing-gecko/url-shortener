@@ -43,4 +43,8 @@ def create_app(test_config=None):
     app.add_url_rule("/", endpoint="index")
     app.register_error_handler(404, urls.page_not_found)
 
+    from . import redirects
+
+    app.register_blueprint(redirects.bp)
+
     return app
