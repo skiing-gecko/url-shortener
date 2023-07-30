@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Home{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% if g.user %}
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <h1 class="mb-3 ps-2">Your URLs:</h1>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="shadow card">
+                <div class="card-body text-start">
+                  <h3 class="card-title">Example URL</h3>
+                  <span>Short URL: </span>
+                  <span class="p-1 bg-body-tertiary rounded">SOMEURLHERE</span>
+                  <p>Long URL: SOMEURLHERE</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="row">
+      <div class="col text-center">
+        <p class="title-text">Welcome to URL Shortener</p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col text-center">
+        <p class="fs-3">Please Register or Log In to continue</p>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
