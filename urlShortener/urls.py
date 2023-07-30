@@ -24,6 +24,10 @@ def generate_random_suffix(length: int) -> str:
     return random_string
 
 
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+
 @bp.route("/")
 def index():
     urls = get_db().execute(

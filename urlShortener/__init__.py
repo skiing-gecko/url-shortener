@@ -41,5 +41,6 @@ def create_app(test_config=None):
 
     app.register_blueprint(urls.bp)
     app.add_url_rule("/", endpoint="index")
+    app.register_error_handler(404, urls.page_not_found)
 
     return app
