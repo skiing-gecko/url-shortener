@@ -13,16 +13,16 @@
           <div class="container">
             <div class="row">
               <div class="col">
-                <div class="shadow card">
+                <div class="shadow card mb-3">
                   <div class="card-body text-start">
                     <h3 class="card-title">URL:</h3>
                     <div class="mb-3">
                       <span>Short URL: </span>
-                      <span class="ps-2 pe-2 pt-1 pb-1 bg-secondary-subtle rounded">127.0.0.1:5000/{{ url["shortener_string"] }}</span>
+                      <span class="ps-2 pe-2 pt-1 pb-1 bg-secondary-subtle rounded">127.0.0.1:5000/url/{{ url["shortener_string"] }}</span>
                     </div>
                     <div>
                       <span>Long URL: </span>
-                      <span class="ps-2 pe-2 pt-1 pb-1 bg-secondary-subtle rounded">{{ url["originalUrl"] }}</span>
+                      <span class="ps-2 pe-2 pt-1 pb-1 bg-secondary-subtle rounded text-nowrap">{{ url["originalUrl"] }}</span>
                     </div>
                   </div>
                 </div>
