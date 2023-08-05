@@ -8,7 +8,14 @@
   {% if g.user %}
     <div class="row justify-content-center">
       <div class="col-4">
-        <h1 class="mb-3 ps-2">Your URLs:</h1>
+        <div class="row">
+          <div class="col">
+            <h1 class="mb-3 ps-2">Your URLs:</h1>
+          </div>
+          <div class="col text-end pe-3">
+            <a class="btn btn-primary me-2" href="{{ url_for('urls.create') }}">New</a>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row justify-content-center">
