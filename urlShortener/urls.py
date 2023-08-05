@@ -65,3 +65,39 @@ def create():
             db.commit()
             return redirect(url_for("urls.index"))
     return render_template("urls/create.html")
+
+
+def get_url(url_id: int, check_creator: bool = True):
+    """
+    :param int url_id: ID of the URL to get
+    :param bool check_creator: If true, check to ensure the user performing the operation is the creator of the URL
+    """
+
+    url = get_db().execute(
+        "SELECT url.id, creator_id, created, shortener_string, originalUrl "
+        "FROM urls url JOIN user u ON url.creator_id = u.id "
+        "WHERE url.id = ?", (url_id,)
+    ).fetchone()
+
+    if url is None:
+        abort(404, f"URL ID {url_id} does not exist")
+
+    if check_creator and url["creator_id"] != g.user["id"]:
+        abort(403)
+
+    return url
+
+
+@bp.route("/<int:url_id>/delete", methods=("POST",))
+@login_required
+def delete(url_id: int):
+    """
+    :param int url_id: ID of the URL to be deleted
+    """
+
+    get_url(url_id)
+    db = get_db()
+    db.execute("DELETE FROM urls WHERE id = ?", (url_id,))
+    db.commit()
+
+    return redirect(url_for("urls.index"))

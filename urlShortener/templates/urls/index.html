@@ -36,6 +36,11 @@
                   <span class="input-group-text"><a href=""><i class="bi bi-clipboard"></i></a></span>
                 </div>
               </div>
+              <div class="card-footer">
+                <form action="{{ url_for('urls.delete', url_id=url['id']) }}" method="post">
+                  <input class="btn btn-danger danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                </form>
+              </div>
             </div>
           </div>
         {% endfor %}
