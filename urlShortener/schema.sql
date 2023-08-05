@@ -10,6 +10,7 @@ CREATE TABLE user (
 CREATE TABLE urls (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     creator_id INTEGER NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     shortener_string TEXT UNIQUE NOT NULL,
     originalUrl TEXT NOT NULL,
     FOREIGN KEY (creator_id) REFERENCES user (id)
