@@ -36,7 +36,8 @@ def index():
         urls = get_db().execute(
             "SELECT url.id, originalUrl, shortener_string, creator_id "
             "FROM urls url JOIN user usr ON url.creator_id = usr.id "
-            "WHERE usr.id = ?", (g.user["id"],)
+            "WHERE usr.id = ? "
+            "ORDER BY created DESC", (g.user["id"],)
         ).fetchall()
     return render_template("urls/index.html", urls=urls)
 
