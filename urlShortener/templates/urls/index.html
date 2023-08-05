@@ -16,13 +16,15 @@
                 <div class="shadow card mb-3">
                   <div class="card-body text-start">
                     <h3 class="card-title">URL:</h3>
-                    <div class="mb-3">
-                      <span>Short URL: </span>
-                      <span class="ps-2 pe-2 pt-1 pb-1 bg-secondary-subtle rounded">127.0.0.1:5000/url/{{ url["shortener_string"] }}</span>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Short URL</span>
+                      <input type="text" class="form-control" readonly value="127.0.0.1:5000/url/{{ url['shortener_string'] }}">
+                      <span class="input-group-text"><a href=""><i class="bi bi-clipboard"></i></a></span>
                     </div>
-                    <div>
-                      <span>Long URL: </span>
-                      <span class="ps-2 pe-2 pt-1 pb-1 bg-secondary-subtle rounded text-nowrap">{{ url["originalUrl"] }}</span>
+                    <div class="input-group">
+                      <span class="input-group-text">Long URL</span>
+                      <input type="text" class="form-control" readonly value="{{ url['originalUrl'] }}">
+                      <span class="input-group-text"><a href=""><i class="bi bi-clipboard"></i></a></span>
                     </div>
                   </div>
                 </div>
