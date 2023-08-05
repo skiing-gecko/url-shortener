@@ -11,7 +11,9 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary mb-5">
       <div class="container-fluid">
-        <a class="navbar-brand me-auto fs-3 fw-medium" href="{{ url_for('urls.index') }}">URL Shortener</a>
+        <a class="navbar-brand me-auto fs-3 fw-medium" href="{{ url_for('urls.index') }}">
+          <img class="me-1" src="../static/images/favicon.png" alt="url-shortener-icon" style="max-width: 3rem; border-radius: 8px">URL Shortener
+        </a>
         {% if g.user %}
           <span class="me-3">{{ g.user['username'] }}</span>
           <a class="btn btn-primary" href="{{ url_for('auth.logout') }}">Log Out</a>
