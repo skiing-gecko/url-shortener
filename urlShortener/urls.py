@@ -34,7 +34,7 @@ def index():
 
     if g.user is not None:
         urls = get_db().execute(
-            "SELECT url.id, original_url, shortener_string, creator_id "
+            "SELECT url.id, url_name, original_url, shortener_string, creator_id "
             "FROM urls url JOIN user usr ON url.creator_id = usr.id "
             "WHERE usr.id = ? "
             "ORDER BY created DESC", (g.user["id"],)
@@ -46,6 +46,7 @@ def index():
 @login_required
 def create():
     if request.method == "POST":
+        url_name: str = request.form["url_name"]
         long_url: str = request.form["url"]
         error = None
 
@@ -59,8 +60,8 @@ def create():
 
             db = get_db()
             db.execute(
-                "INSERT INTO urls (original_url, shortener_string, creator_id) VALUES (?, ?, ?)",
-                (long_url, random_suffix, g.user["id"])
+                "INSERT INTO urls (url_name, original_url, shortener_string, creator_id) VALUES (?, ?, ?, ?)",
+                (url_name, long_url, random_suffix, g.user["id"])
             )
             db.commit()
             return redirect(url_for("urls.index"))
@@ -74,7 +75,7 @@ def get_url(url_id: int, check_creator: bool = True):
     """
 
     url = get_db().execute(
-        "SELECT url.id, creator_id, created, shortener_string, original_url "
+        "SELECT url.id, creator_id, created, url_name, shortener_string, original_url "
         "FROM urls url JOIN user u ON url.creator_id = u.id "
         "WHERE url.id = ?", (url_id,)
     ).fetchone()

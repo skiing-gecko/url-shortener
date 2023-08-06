@@ -11,6 +11,7 @@ CREATE TABLE urls (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     creator_id INTEGER NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    url_name TEXT NOT NULL,
     shortener_string TEXT UNIQUE NOT NULL,
     original_url TEXT NOT NULL,
     FOREIGN KEY (creator_id) REFERENCES user (id)
