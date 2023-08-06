@@ -5,7 +5,20 @@
 {% endblock %}
 
 {% block content %}
-<div>
-  <h1>Uh-oh 404</h1>
-</div>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <h1 class="title-text">Oops!</h1>
+      <h2>Looks like this page is on holiday</h2>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-8 text-center">
+      <img src="../static/images/404.png" alt="Internet browser character with drink under parasol" style="max-width: 50%">
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-4 text-center">
+      <a class="btn btn-primary mt-3" href="{{ url_for('urls.index') }}">Take Me Home</a>
+    </div>
+  </div>
 {% endblock %}
