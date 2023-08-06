@@ -16,11 +16,23 @@ def generate_random_suffix(length: int) -> str:
     :param length: Length of generated string
     """
 
-    random_string: str = "".join(random.choice(string.ascii_letters) for _ in range(length))
-    db_string = get_db().execute("SELECT * FROM urls WHERE shortener_string = ?", (random_string,)).fetchone()
+    random_string: str = "".join(
+        random.choice(string.ascii_letters) for _ in range(length)
+    )
+    db_string = (
+        get_db()
+        .execute("SELECT * FROM urls WHERE shortener_string = ?", (random_string,))
+        .fetchone()
+    )
     while db_string is not None:
-        random_string = "".join(random.choice(string.ascii_letters) for _ in range(length))
-        db_string = get_db().execute("SELECT * FROM urls WHERE shortener_string = ?", (random_string,)).fetchone()
+        random_string = "".join(
+            random.choice(string.ascii_letters) for _ in range(length)
+        )
+        db_string = (
+            get_db()
+            .execute("SELECT * FROM urls WHERE shortener_string = ?", (random_string,))
+            .fetchone()
+        )
     return random_string
 
 
@@ -33,12 +45,17 @@ def index():
     urls = None
 
     if g.user is not None:
-        urls = get_db().execute(
-            "SELECT url.id, url_name, original_url, shortener_string, creator_id "
-            "FROM urls url JOIN user usr ON url.creator_id = usr.id "
-            "WHERE usr.id = ? "
-            "ORDER BY created DESC", (g.user["id"],)
-        ).fetchall()
+        urls = (
+            get_db()
+            .execute(
+                "SELECT url.id, url_name, original_url, shortener_string, creator_id "
+                "FROM urls url JOIN user usr ON url.creator_id = usr.id "
+                "WHERE usr.id = ? "
+                "ORDER BY created DESC",
+                (g.user["id"],),
+            )
+            .fetchall()
+        )
     return render_template("urls/index.html", urls=urls)
 
 
@@ -61,7 +78,7 @@ def create():
             db = get_db()
             db.execute(
                 "INSERT INTO urls (url_name, original_url, shortener_string, creator_id) VALUES (?, ?, ?, ?)",
-                (url_name, long_url, random_suffix, g.user["id"])
+                (url_name, long_url, random_suffix, g.user["id"]),
             )
             db.commit()
             return redirect(url_for("urls.index"))
@@ -74,11 +91,16 @@ def get_url(url_id: int, check_creator: bool = True):
     :param bool check_creator: If true, check to ensure the user performing the operation is the creator of the URL
     """
 
-    url = get_db().execute(
-        "SELECT url.id, creator_id, created, url_name, shortener_string, original_url "
-        "FROM urls url JOIN user u ON url.creator_id = u.id "
-        "WHERE url.id = ?", (url_id,)
-    ).fetchone()
+    url = (
+        get_db()
+        .execute(
+            "SELECT url.id, creator_id, created, url_name, shortener_string, original_url "
+            "FROM urls url JOIN user u ON url.creator_id = u.id "
+            "WHERE url.id = ?",
+            (url_id,),
+        )
+        .fetchone()
+    )
 
     if url is None:
         abort(404, f"URL ID {url_id} does not exist")
