@@ -27,13 +27,13 @@
                 <h3 class="card-title">URL:</h3>
                 <div class="input-group mb-3">
                   <span class="input-group-text">Short URL</span>
-                  <input type="text" class="form-control" readonly value="127.0.0.1:5000/url/{{ url['shortener_string'] }}">
-                  <span class="input-group-text"><a href=""><i class="bi bi-clipboard"></i></a></span>
+                  <input id="shortUrlText" type="text" class="form-control" readonly value="127.0.0.1:5000/url/{{ url['shortener_string'] }}">
+                  <span class="input-group-text copy-button"><i id="copyShort" onclick="copy_to_clipboard(this.id)" class="bi bi-clipboard text-primary"></i></span>
                 </div>
                 <div class="input-group">
                   <span class="input-group-text">Long URL</span>
-                  <input type="text" class="form-control" readonly value="{{ url['originalUrl'] }}">
-                  <span class="input-group-text"><a href=""><i class="bi bi-clipboard"></i></a></span>
+                  <input id="longUrlText" type="text" class="form-control" readonly value="{{ url['originalUrl'] }}">
+                  <span class="input-group-text copy-button"><i id="copyLong" onclick="copy_to_clipboard(this.id)" class="bi bi-clipboard text-primary"></i></span>
                 </div>
               </div>
               <div class="card-footer">
