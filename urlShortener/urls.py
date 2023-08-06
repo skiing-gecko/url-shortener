@@ -65,7 +65,8 @@ def create():
     if request.method == "POST":
         url_name: str = request.form["url_name"]
         long_url: str = request.form["url"]
-        error = None
+        custom_suffix: str = request.form["extension"]
+        error: None | str = None
 
         if long_url is None:
             error = "URL is required"
@@ -73,12 +74,15 @@ def create():
         if error is not None:
             flash(error)
         else:
-            random_suffix: str = generate_random_suffix(5)
+            if custom_suffix == "":
+                suffix: str = generate_random_suffix(5)
+            else:
+                suffix = custom_suffix
 
             db = get_db()
             db.execute(
                 "INSERT INTO urls (url_name, original_url, shortener_string, creator_id) VALUES (?, ?, ?, ?)",
-                (url_name, long_url, random_suffix, g.user["id"]),
+                (url_name, long_url, suffix, g.user["id"]),
             )
             db.commit()
             return redirect(url_for("urls.index"))
