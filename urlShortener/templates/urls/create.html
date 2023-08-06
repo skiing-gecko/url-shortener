@@ -9,10 +9,12 @@
             <h3 class="card-title">Create URL</h3>
             <form method="post">
               <div>
-                <label for="url_name" class="form-label mb-0">Name</label>
+                <label for="url_name" class="form-label mb-0">Name <span class="text-danger">*</span></label>
                 <input type="text" class="form-control mb-2" name="url_name" id="url_name" required>
-                <label for="url" class="form-label mb-0">URL</label>
-                <input type="url" class="form-control" name="url" id="url" required>
+                <label for="url" class="form-label mb-0">URL <span class="text-danger">*</span></label>
+                <input type="url" class="form-control mb-2" name="url" id="url" required>
+                <label for="extension" class="form-label mb-0">Custom URL Extension<i data-bs-toggle="tooltip" data-bs-title="Characters that will appear at the end of your short URL" class="ms-2 bi bi-question-circle"></i></label>
+                <input type="text" class="form-control" name="extension" id="extension">
               </div>
               <div class="justify-content-center">
                 <button type="submit" class="btn btn-primary mt-3">Create</button>
