@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect
-from urlShortener.db import get_db
 from werkzeug.exceptions import abort
+
+from urlShortener.db import get_db
 
 bp = Blueprint("redirects", __name__, url_prefix="/url")
 
@@ -12,7 +13,11 @@ def redirect_url(suffix: str):
 
     :param str suffix: URL variable referring to the randomly generated string assigned to a 'long' URL
     """
-    url = get_db().execute("SELECT original_url FROM urls WHERE shortener_string = ?", (suffix,)).fetchone()
+    url = (
+        get_db()
+        .execute("SELECT original_url FROM urls WHERE shortener_string = ?", (suffix,))
+        .fetchone()
+    )
 
     if url is not None:
         return redirect(url[0])

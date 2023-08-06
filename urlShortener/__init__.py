@@ -3,6 +3,7 @@
 # Based on Flask tutorial: https://flask.palletsprojects.com/en/2.3.x/tutorial/
 
 import os
+
 from flask import Flask
 
 
