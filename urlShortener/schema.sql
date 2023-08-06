@@ -12,6 +12,6 @@ CREATE TABLE urls (
     creator_id INTEGER NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     shortener_string TEXT UNIQUE NOT NULL,
-    originalUrl TEXT NOT NULL,
+    original_url TEXT NOT NULL,
     FOREIGN KEY (creator_id) REFERENCES user (id)
 );
