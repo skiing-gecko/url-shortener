@@ -1,6 +1,7 @@
 """Authentication for url-shortener users"""
 
 import functools
+import secrets
 
 from flask import (
     Blueprint,
@@ -17,6 +18,10 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from urlShortener.db import get_db
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
+
+
+def generate_api_key():
+    return secrets.token_hex(64)
 
 
 @bp.route("/register", methods=("GET", "POST"))
@@ -37,9 +42,11 @@ def register():
 
         if error is None:
             try:
+                key = generate_api_key()
+                print(key)
                 db.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
-                    (username, generate_password_hash(password)),
+                    "INSERT INTO user (username, password, api_key) VALUES (?, ?, ?)",
+                    (username, generate_password_hash(password), key),
                 )
                 db.commit()
             except db.IntegrityError:

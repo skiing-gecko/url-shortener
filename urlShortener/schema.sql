@@ -4,7 +4,8 @@ DROP TABLE IF EXISTS urls;
 CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    api_key TEXT UNIQUE
 );
 
 CREATE TABLE urls (
