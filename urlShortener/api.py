@@ -63,3 +63,18 @@ def get_url_by_id(url_id: int):
         if url is not None:
             return dict(url)
         abort(404, description="Resource Not Found")
+
+
+@bp.route("/urls/<int:url_id>", methods=("DELETE",))
+def delete_url_by_id(url_id: int):
+    key = request.headers.get("Authorization")
+
+    user_id: str = authenticate_api(key)
+
+    if user_id is not None:
+        db = get_db()
+        db.execute(
+            "DELETE FROM urls WHERE id = ? AND creator_id = ?", (url_id, user_id)
+        )
+        db.commit()
+        return "", 204
