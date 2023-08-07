@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from werkzeug.exceptions import abort
 
 from urlShortener.db import get_db
@@ -13,6 +13,11 @@ def authenticate_api(key: str):
         abort(401)
     else:
         return user["id"]
+
+
+@bp.errorhandler(404)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 404
 
 
 @bp.route("/urls", methods=("GET",))
