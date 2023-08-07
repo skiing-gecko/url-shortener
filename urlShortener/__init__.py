@@ -44,4 +44,8 @@ def create_app(test_config=None):
 
     app.register_blueprint(redirects.bp)
 
+    from . import api
+
+    app.register_blueprint(api.bp)
+
     return app
