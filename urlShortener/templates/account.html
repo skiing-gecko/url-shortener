@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  {% block title %}Account{% endblock %}
+{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="container">
+        <div class="shadow card mb-3">
+          <div class="card-header">
+            <h3 class="card-title">Hello, {{ g.user['username'] }}!</h3>
+          </div>
+          <div class="card-body text-start">
+            <button class="btn btn-primary">Generate API Key</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
