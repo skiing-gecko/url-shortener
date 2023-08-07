@@ -40,3 +40,26 @@ def get_all_urls():
         )
 
         return {"urls": [dict(url) for url in urls]}
+
+
+@bp.route("/urls/<int:url_id>", methods=("GET",))
+def get_url_by_id(url_id: int):
+    key = request.headers.get("Authorization")
+
+    user_id: str = authenticate_api(key)
+
+    if user_id is not None:
+        url = (
+            get_db()
+            .execute(
+                "SELECT url.id, url_name, original_url, shortener_string, created "
+                "FROM urls url JOIN user usr ON url.creator_id = usr.id "
+                "WHERE usr.id = ? AND url.id = ?"
+                "ORDER BY created DESC",
+                (user_id, url_id),
+            )
+            .fetchone()
+        )
+        if url is not None:
+            return dict(url)
+        abort(404, description="Resource Not Found")
