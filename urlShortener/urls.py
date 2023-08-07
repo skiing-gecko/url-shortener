@@ -19,21 +19,29 @@ def generate_random_suffix(length: int) -> str:
     random_string: str = "".join(
         random.choice(string.ascii_letters) for _ in range(length)
     )
-    db_string = (
-        get_db()
-        .execute("SELECT * FROM urls WHERE shortener_string = ?", (random_string,))
-        .fetchone()
-    )
-    while db_string is not None:
+    suffix_is_unique: bool = check_unique_suffix(random_string)
+
+    while not suffix_is_unique:
         random_string = "".join(
             random.choice(string.ascii_letters) for _ in range(length)
         )
-        db_string = (
-            get_db()
-            .execute("SELECT * FROM urls WHERE shortener_string = ?", (random_string,))
-            .fetchone()
-        )
+        suffix_is_unique = check_unique_suffix(random_string)
     return random_string
+
+
+def check_unique_suffix(suffix: str) -> bool:
+    """
+    Return True if the suffix is not in the database, False otherwise
+    """
+
+    db_string = (
+        get_db()
+        .execute("SELECT * FROM urls WHERE shortener_string = ?", (suffix,))
+        .fetchone()
+    )
+    if db_string is None:
+        return True
+    return False
 
 
 def page_not_found(e):
@@ -70,6 +78,10 @@ def create():
 
         if long_url is None:
             error = "URL is required"
+
+        if custom_suffix != "":
+            if not check_unique_suffix(custom_suffix):
+                error = "That URL extension is not available"
 
         if error is not None:
             flash(error)
