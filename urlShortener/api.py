@@ -2,6 +2,9 @@ from flask import Blueprint, request, jsonify
 from werkzeug.exceptions import abort
 
 from urlShortener.db import get_db
+from urlShortener.urls import generate_random_suffix
+
+from sqlite3 import IntegrityError
 
 bp = Blueprint("api", __name__, url_prefix="/api/v1")
 
@@ -115,6 +118,40 @@ def update_url_by_id(url_id: int):
             )
             db.commit()
             return "", 200
+        except KeyError:
+            abort(
+                400,
+                description="Bad Request. If you have entered the attribute names manually, try checking the spelling.",
+            )
+
+
+@bp.route("/urls", methods=("POST",))
+def create_url():
+    key = request.headers.get("Authorization")
+
+    user_id: str = authenticate_api(key)
+
+    if user_id is not None:
+        try:
+            url_name: str = request.json["url_name"]
+            original_url: str = request.json["original_url"]
+
+            try:
+                shortener_string: str = request.json["shortener_string"]
+            except KeyError:
+                shortener_string = generate_random_suffix(5)
+
+            try:
+                db = get_db()
+                db.execute(
+                    "INSERT INTO urls (url_name, original_url, shortener_string, creator_id) VALUES (?, ?, ?, ?)",
+                    (url_name, original_url, shortener_string, user_id),
+                )
+                db.commit()
+
+                return "", 201
+            except IntegrityError:
+                abort(409)
         except KeyError:
             abort(
                 400,
