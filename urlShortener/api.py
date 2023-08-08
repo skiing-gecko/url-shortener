@@ -25,6 +25,11 @@ def unauthorized(e):
     return jsonify(error=str(e)), 401
 
 
+@bp.errorhandler(400)
+def bad_request(e):
+    return jsonify(error=str(e)), 400
+
+
 @bp.route("/urls", methods=("GET",))
 def get_all_urls():
     key = request.headers.get("Authorization")
@@ -111,4 +116,7 @@ def update_url_by_id(url_id: int):
             db.commit()
             return "", 200
         except KeyError:
-            abort(400)
+            abort(
+                400,
+                description="Bad Request. If you have entered the attribute names manually, try checking the spelling.",
+            )
