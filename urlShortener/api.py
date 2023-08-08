@@ -10,7 +10,7 @@ def authenticate_api(key: str):
     user = get_db().execute("SELECT * FROM user WHERE api_key = ?", (key,)).fetchone()
 
     if user is None:
-        abort(401)
+        abort(401, description="Unauthorized")
     else:
         return user["id"]
 
@@ -18,6 +18,11 @@ def authenticate_api(key: str):
 @bp.errorhandler(404)
 def resource_not_found(e):
     return jsonify(error=str(e)), 404
+
+
+@bp.errorhandler(401)
+def unauthorized(e):
+    return jsonify(error=str(e)), 401
 
 
 @bp.route("/urls", methods=("GET",))
@@ -91,7 +96,7 @@ def update_url_by_id(url_id: int):
         .execute("SELECT 1 WHERE EXISTS( SELECT 1 FROM urls WHERE id = ? )", (url_id,))
         .fetchone()
     ) is None:
-        abort(404)
+        abort(404, description="Resource Not Found")
 
     if user_id is not None:
         try:
