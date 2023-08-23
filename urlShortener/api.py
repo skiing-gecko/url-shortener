@@ -1,7 +1,7 @@
 from sqlite3 import IntegrityError
 
 from flask import Blueprint, request, jsonify
-from werkzeug.exceptions import abort
+from werkzeug.exceptions import abort, BadRequest
 
 from urlShortener.db import get_db
 from urlShortener.urls import generate_random_suffix
@@ -118,7 +118,7 @@ def update_url_by_id(url_id: int):
             )
             db.commit()
             return "", 200
-        except (KeyError, TypeError):
+        except (KeyError, TypeError, BadRequest):
             abort(
                 400,
                 description="Try checking the spelling, and that all required attributes are present.",
@@ -164,7 +164,7 @@ def create_url():
                     description="A URL with this shortener string already exists. Please try again with a different "
                     "string, or remove the shortener_string attribute to receive a random string.",
                 )
-        except KeyError:
+        except (KeyError, BadRequest):
             abort(
                 400,
                 description="Bad Request. If you have entered the attribute names manually, try checking the spelling.",
