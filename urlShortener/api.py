@@ -149,7 +149,15 @@ def create_url():
                 )
                 db.commit()
 
-                return "", 201
+                return (
+                    dict(
+                        db.execute(
+                            "SELECT id, created, original_url, shortener_string, url_name "
+                            "FROM urls ORDER BY created DESC LIMIT 1"
+                        ).fetchone()
+                    ),
+                    201,
+                )
             except IntegrityError:
                 abort(
                     409,
