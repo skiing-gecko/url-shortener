@@ -46,7 +46,10 @@ def get_all_urls():
             .fetchall()
         )
 
-        return {"urls": [dict(url) for url in urls]}
+        if bool(urls):
+            return {"urls": [dict(url) for url in urls]}
+        else:
+            abort(404, description="No URLs found")
 
 
 @bp.route("/urls/<int:url_id>", methods=("GET",))
