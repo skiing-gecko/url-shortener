@@ -18,19 +18,13 @@ def authenticate_api(key: str):
         return user["id"]
 
 
-@bp.errorhandler(404)
-def resource_not_found(e):
-    return jsonify(error=str(e)), 404
-
-
-@bp.errorhandler(401)
-def unauthorized(e):
-    return jsonify(error=str(e)), 401
-
-
 @bp.errorhandler(400)
-def bad_request(e):
-    return jsonify(error=str(e)), 400
+@bp.errorhandler(401)
+@bp.errorhandler(404)
+@bp.errorhandler(415)
+@bp.errorhandler(500)
+def http_error_handler(err):
+    return jsonify(error=str(err)), err.code
 
 
 @bp.route("/urls", methods=("GET",))
