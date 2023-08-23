@@ -1,10 +1,10 @@
+from sqlite3 import IntegrityError
+
 from flask import Blueprint, request, jsonify
 from werkzeug.exceptions import abort
 
 from urlShortener.db import get_db
 from urlShortener.urls import generate_random_suffix
-
-from sqlite3 import IntegrityError
 
 bp = Blueprint("api", __name__, url_prefix="/api/v0.1.0")
 
