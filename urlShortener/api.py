@@ -118,7 +118,7 @@ def update_url_by_id(url_id: int):
         except (KeyError, TypeError):
             abort(
                 400,
-                description="Bad Request. If you have entered the attribute names manually, try checking the spelling.",
+                description="Try checking the spelling, and that all required attributes are present.",
             )
 
 
