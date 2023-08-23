@@ -153,6 +153,11 @@ def create_url():
             except IntegrityError:
                 abort(409)
         except KeyError:
+                abort(
+                    409,
+                    description="A URL with this shortener string already exists. Please try again with a different "
+                    "string, or remove the shortener_string attribute to receive a random string.",
+                )
             abort(
                 400,
                 description="Bad Request. If you have entered the attribute names manually, try checking the spelling.",
