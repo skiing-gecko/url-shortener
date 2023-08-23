@@ -151,8 +151,6 @@ def create_url():
 
                 return "", 201
             except IntegrityError:
-                abort(409)
-        except KeyError:
                 abort(
                     409,
                     description="A URL with this shortener string already exists. Please try again with a different "
