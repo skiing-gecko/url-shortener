@@ -72,7 +72,7 @@ def get_url_by_id(url_id: int):
         )
         if url is not None:
             return dict(url)
-        abort(404, description="Resource Not Found")
+        abort(404, description="A URL with this ID was not found")
 
 
 @bp.route("/urls/<int:url_id>", methods=("DELETE",))
