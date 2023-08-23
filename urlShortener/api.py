@@ -156,6 +156,7 @@ def create_url():
                     description="A URL with this shortener string already exists. Please try again with a different "
                     "string, or remove the shortener_string attribute to receive a random string.",
                 )
+        except KeyError:
             abort(
                 400,
                 description="Bad Request. If you have entered the attribute names manually, try checking the spelling.",
