@@ -6,7 +6,7 @@ from urlShortener.urls import generate_random_suffix
 
 from sqlite3 import IntegrityError
 
-bp = Blueprint("api", __name__, url_prefix="/api/v1")
+bp = Blueprint("api", __name__, url_prefix="/api/v0.1.0")
 
 
 def authenticate_api(key: str):
