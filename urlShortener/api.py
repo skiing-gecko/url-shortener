@@ -138,6 +138,8 @@ def create_url():
 
             try:
                 shortener_string: str = request.json["shortener_string"]
+                if not bool(shortener_string):
+                    shortener_string = generate_random_suffix(5)
             except KeyError:
                 shortener_string = generate_random_suffix(5)
 
