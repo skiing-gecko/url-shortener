@@ -115,7 +115,7 @@ def update_url_by_id(url_id: int):
             )
             db.commit()
             return "", 200
-        except KeyError:
+        except (KeyError, TypeError):
             abort(
                 400,
                 description="Bad Request. If you have entered the attribute names manually, try checking the spelling.",
