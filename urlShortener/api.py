@@ -13,7 +13,10 @@ def authenticate_api(key: str):
     user = get_db().execute("SELECT * FROM user WHERE api_key = ?", (key,)).fetchone()
 
     if user is None:
-        abort(401, description="Unauthorized")
+        abort(
+            401,
+            description="Try checking that an API key has been supplied, and that it is spelled correctly.",
+        )
     else:
         return user["id"]
 
