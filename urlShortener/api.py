@@ -142,7 +142,7 @@ def create_url():
                 if not bool(shortener_string):
                     shortener_string = generate_random_suffix(5)
             except KeyError:
-                shortener_string = generate_random_suffix(5)
+                abort(400)
 
             try:
                 db = get_db()
