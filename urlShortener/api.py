@@ -6,6 +6,8 @@ from werkzeug.exceptions import abort, BadRequest
 from urlShortener.db import get_db
 from urlShortener.urls import generate_random_suffix
 
+import re
+
 bp = Blueprint("api", __name__, url_prefix="/api/v0.1.0")
 
 
@@ -19,6 +21,13 @@ def authenticate_api(key: str):
         )
     else:
         return user["id"]
+
+
+def check_safe_string(input_string: str) -> bool:
+    alphabet = re.compile(r"^[a-zA-Z]+$")
+    if alphabet.match(input_string) is None:
+        return False
+    return True
 
 
 @bp.errorhandler(400)
@@ -139,6 +148,8 @@ def create_url():
 
             try:
                 shortener_string: str = request.json["shortener_string"]
+                if not check_safe_string(shortener_string):
+                    abort(400)
                 if not bool(shortener_string):
                     shortener_string = generate_random_suffix(5)
             except KeyError:
