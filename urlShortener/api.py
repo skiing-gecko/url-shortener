@@ -24,6 +24,7 @@ def authenticate_api(key: str):
 @bp.errorhandler(400)
 @bp.errorhandler(401)
 @bp.errorhandler(404)
+@bp.errorhandler(409)
 @bp.errorhandler(415)
 @bp.errorhandler(500)
 def http_error_handler(err):
