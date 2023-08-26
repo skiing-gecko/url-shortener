@@ -43,7 +43,6 @@ def register():
         if error is None:
             try:
                 key = generate_api_key()
-                print(key)
                 db.execute(
                     "INSERT INTO user (username, password, api_key) VALUES (?, ?, ?)",
                     (username, generate_password_hash(password), key),
