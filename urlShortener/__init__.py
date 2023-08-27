@@ -48,4 +48,8 @@ def create_app(test_config=None):
 
     app.register_blueprint(api.bp)
 
+    from . import account
+
+    app.register_blueprint(account.bp)
+
     return app

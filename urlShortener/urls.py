@@ -140,9 +140,3 @@ def delete(url_id: int):
     db.commit()
 
     return redirect(url_for("urls.index"))
-
-
-@bp.route("/account")
-@login_required
-def account():
-    return render_template("account.html")
