@@ -148,10 +148,10 @@ def create_url():
 
             try:
                 shortener_string: str = request.json["shortener_string"]
-                if not check_safe_string(shortener_string):
-                    abort(400)
                 if not bool(shortener_string):
                     shortener_string = generate_random_suffix(5)
+                if not check_safe_string(shortener_string):
+                    abort(400)
             except KeyError:
                 abort(400)
 
