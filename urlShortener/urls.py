@@ -76,7 +76,7 @@ def create():
         custom_suffix: str = request.form["extension"]
         error: None | str = None
 
-        if long_url is None:
+        if long_url is None or not bool(long_url):
             error = "URL is required"
 
         if custom_suffix != "":
