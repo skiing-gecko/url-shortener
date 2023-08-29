@@ -53,6 +53,41 @@ def test_create(client, auth, app):
         assert count == 2
 
 
+def test_create_long_url_required(client, auth, app):
+    auth.login()
+    assert client.get("/create").status_code == 200
+    response = client.post(
+        "/create",
+        data={
+            "url_name": "test",
+            "extension": "",
+            "url": "",
+        },
+    )
+    assert b"URL is required" in response.data
+    with app.app_context():
+        db = get_db()
+        count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
+        assert count == 1
+
+
+def test_handle_empty_suffix(client, auth, app):
+    auth.login()
+    response = client.post(
+        "/create",
+        data={
+            "url_name": "test",
+            "extension": "",
+            "url": "https://example.com",
+        },
+    )
+    assert response.status_code == 302
+    with app.app_context():
+        db = get_db()
+        count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
+        assert count == 2
+
+
 def test_update(client, auth, app):
     pass
 
@@ -66,3 +101,21 @@ def test_delete(client, auth, app):
         db = get_db()
         url = db.execute("SELECT * FROM urls WHERE id = 1").fetchone()
         assert url is None
+
+
+def test_require_unique_suffix(client, auth, app):
+    auth.login()
+    response = client.post(
+        "/create",
+        data={
+            "url_name": "test",
+            "extension": "testing",
+            "url": "https://example.com",
+        },
+    )
+    assert response.status_code == 200
+    assert b"not available" in response.data
+    with app.app_context():
+        db = get_db()
+        count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
+        assert count == 1
