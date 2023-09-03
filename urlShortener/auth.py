@@ -45,7 +45,11 @@ def register():
                 key = generate_api_key()
                 db.execute(
                     "INSERT INTO user (username, password, api_key) VALUES (?, ?, ?)",
-                    (username, generate_password_hash(password), key),
+                    (
+                        username,
+                        generate_password_hash(method="scrypt", password=password),
+                        key,
+                    ),
                 )
                 db.commit()
             except db.IntegrityError:
