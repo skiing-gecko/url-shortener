@@ -7,13 +7,55 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="../static/scripts/copy.js"></script>
+    <script src="../static/scripts/theme.js"></script>
+    <script src="../static/scripts/copy.js" defer></script>
   </head>
   <body class="d-flex flex-column h-100">
     <nav class="navbar navbar-expand-lg bg-body-tertiary mb-5">
       <div class="container-fluid">
         <a class="navbar-brand me-auto fs-3 fw-medium" href="{{ url_for('urls.index') }}">
-          <img class="me-1" src="../static/images/favicon.png" alt="url-shortener-icon" style="max-width: 3rem; border-radius: 8px">URL Shortener
+          <svg height="2.5rem" viewBox="0 0 1940 280" stroke-miterlimit="10"
+               style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;"
+               xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <path d="M136.468 131.275C127.078 121.886 127.247 106.493 136.845 96.895L166.655 67.085C176.253 57.4871 191.645 57.3184 201.035 66.7083L213.292 78.9647C222.682 88.3546 222.513 103.747 212.915 113.345L183.105 143.155C173.507 152.753 158.114 152.922 148.725 143.532L136.468 131.275Z"
+                  id="Fill"/>
+            <path d="M66.7295 200.992C57.3229 191.586 57.478 176.179 67.0759 166.582L96.8859 136.771C106.484 127.174 121.89 127.019 131.297 136.425L143.575 148.703C152.981 158.11 152.826 173.516 143.229 183.114L113.418 212.924C103.821 222.522 88.4144 222.677 79.0078 213.271L66.7295 200.992Z"
+                  id="Fill_2"/>
+          </defs>
+            <g id="Logo">
+            <text id="logo-text" fill="#303030" font-family="HelveticaNeue-Bold" font-size="210" opacity="1"
+                  stroke="none" text-anchor="start" transform="matrix(1 0 0 1 373.699 10)" x="0" y="0">
+              <tspan font-weight="bold" textLength="1482.18" x="0" y="205">URL Shortener</tspan>
+            </text>
+              <g opacity="1">
+              <path d="M0 44C0 19.6995 19.6995 0 44 0L236 0C260.301 0 280 19.6995 280 44L280 236C280 260.301 260.301 280 236 280L44 280C19.6995 280 0 260.301 0 236L0 44Z"
+                    fill="#38b6ff" fill-rule="nonzero" opacity="1" stroke="none"/>
+                <g opacity="1">
+                <mask height="90.6906" id="StrokeMask" maskUnits="userSpaceOnUse" width="90.6906" x="129.535"
+                      y="59.7748">
+                  <rect fill="#000000" height="90.6906" stroke="none" width="90.6906" x="129.535" y="59.7748"/>
+                  <use fill="#ffffff" fill-rule="evenodd" stroke="none" xlink:href="#Fill"/>
+                </mask>
+                  <use fill="none" mask="url(#StrokeMask)" stroke="#ffffff" stroke-linecap="butt"
+                       stroke-linejoin="round" stroke-width="30" xlink:href="#Fill"/>
+              </g>
+                <g opacity="1">
+                <mask height="90.7549" id="StrokeMask_2" maskUnits="userSpaceOnUse" width="90.7549" x="59.7748"
+                      y="129.47">
+                  <rect fill="#000000" height="90.7549" stroke="none" width="90.7549" x="59.7748" y="129.47"/>
+                  <use fill="#ffffff" fill-rule="evenodd" stroke="none" xlink:href="#Fill_2"/>
+                </mask>
+                  <use fill="none" mask="url(#StrokeMask_2)" stroke="#ffffff" stroke-linecap="butt"
+                       stroke-linejoin="round" stroke-width="30" xlink:href="#Fill_2"/>
+              </g>
+                <path d="M151.061 109.909C152.66 108.31 154.565 107.624 155.317 108.375L171.625 124.683C172.376 125.435 171.69 127.34 170.091 128.939L128.972 170.058C127.372 171.658 125.467 172.344 124.715 171.593L108.407 155.285C107.656 154.533 108.342 152.628 109.942 151.028L151.061 109.909Z"
+                      fill="#38b6ff" fill-rule="nonzero" opacity="1" stroke="none"/>
+                <path d="M143.901 121.716C146.976 118.642 152.066 118.747 155.271 121.952L158.048 124.729C161.253 127.934 161.358 133.024 158.284 136.099L136.131 158.252C133.056 161.326 127.966 161.221 124.761 158.016L121.984 155.239C118.779 152.034 118.674 146.944 121.748 143.869L143.901 121.716Z"
+                      fill="#ffffff" fill-rule="nonzero" opacity="1" stroke="none"/>
+            </g>
+          </g>
+        </svg>
         </a>
         {% if g.user %}
           <span class="me-3">{{ g.user['username'] }}</span>
@@ -31,8 +73,8 @@
       <div class="row">
         <div class="col">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="themeCheck">
-            <label class="form-check-label" for="themeCheck">Light / Dark</label>
+            <input class="form-check-input" type="checkbox" role="switch" id="color-button">
+            <label class="form-check-label" for="color-button">Light / Dark</label>
           </div>
         </div>
         <div class="col text-center">
