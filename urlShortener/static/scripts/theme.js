@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function set_initial_theme() {
   if (localStorage.getItem('theme')) {
     document.documentElement.setAttribute('data-bs-theme', localStorage.getItem('theme'));
+  } else {
+    localStorage.setItem('theme', 'light');
+    document.documentElement.setAttribute('data-bs-theme', 'light');
   }
 }
 
