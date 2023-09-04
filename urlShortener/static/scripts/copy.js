@@ -1,15 +1,10 @@
-async function copy_to_clipboard(button_id) {
-  let text_to_copy;
+async function copy_to_clipboard(button) {
 
-  if (button_id === 'copyShort') {
-    text_to_copy = document.getElementById('shortUrlText');
-  } else if (button_id === 'copyLong') {
-    text_to_copy = document.getElementById('longUrlText');
-  }
+  const text_to_copy = button.parentNode.parentNode.children[1];
   text_to_copy.select();
 
   try {
-    await navigator.clipboard.writeText(text_to_copy.value);
+    await navigator.clipboard.writeText(text_to_copy.value.trim());
   } catch (error) {
     console.error('Error when copying: ', error);
   }
