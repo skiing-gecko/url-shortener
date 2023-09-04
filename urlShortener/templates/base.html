@@ -2,6 +2,7 @@
 <html lang="en" class="h-100" data-bs-theme="light">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %} - Url Shortener</title>
     <link rel="icon" type="image/x-icon" href="../static/images/favicon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -57,16 +58,40 @@
           </g>
         </svg>
         </a>
-        {% if g.user %}
-          <span class="me-3">{{ g.user['username'] }}</span>
-          <a class="btn btn-primary" href="{{ url_for('auth.logout') }}">Log Out</a>
-        {% else %}
-          <a class="btn btn-primary me-2" href="{{ url_for('auth.register') }}">Register</a>
-          <a class="btn btn-primary" href="{{ url_for('auth.login') }}">Log In</a>
-        {% endif %}
-        <button id="color-toggle" class="btn btn-secondary ms-2">
-          <i class="bi bi-moon-stars-fill"></i>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbar-offcanvas">
+          <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="navbar-offcanvas">
+          <div class="offcanvas-header pb-0">
+            <h5 class="offcanvas-title" id="navbar-offcanvas-label">URL Shortener</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+          </div>
+          <div class="offcanvas-body pt-0">
+            <hr class="d-lg-none">
+            <ul class="navbar-nav justify-content-even justify-content-lg-end flex-lg-grow-1 flex-row flex-wrap align-items-center">
+              {% if g.user %}
+              <li class="nav-item me-3">
+                <span>{{ g.user['username'] }}</span>
+              </li>
+              <li class="nav-item me-3 me-lg-2">
+                <a class="btn btn-primary" href="{{ url_for('auth.logout') }}">Log Out</a>
+              </li>
+              {% else %}
+              <li class="nav-item me-3 me-lg-2">
+                <a class="btn btn-primary" href="{{ url_for('auth.register') }}">Register</a>
+              </li>
+              <li class="nav-item me-3 me-lg-2">
+                <a class="btn btn-primary" href="{{ url_for('auth.login') }}">Log In</a>
+              </li>
+              {% endif %}
+              <li>
+                <button id="color-toggle" class="btn btn-secondary">
+                  <i class="bi bi-moon-stars-fill"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </nav>
     <section class="content flex-shrink-0">
@@ -84,5 +109,7 @@
   <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    const offcanvasElementList = document.querySelectorAll('.offcanvas')
+    const offcanvasList = [...offcanvasElementList].map(offcanvasEl => new bootstrap.Offcanvas(offcanvasEl))
   </script>
 </html>
