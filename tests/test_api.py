@@ -38,8 +38,13 @@ def test_get_urls(client):
     )
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
-    assert len(response.json["urls"]) == 1
-    assert response.json["urls"][0]["shortener_string"] == "testing"
+    assert len(response.json["urls"]) == 3
+    for url in response.json["urls"]:
+        assert url["shortener_string"] in (
+            "testing",
+            "exampleOne",
+            "exampleTwo",
+        )
 
 
 def test_only_get_owned_urls(client):
@@ -119,7 +124,7 @@ def test_create_new_url(client, app):
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
-        assert count == 2
+        assert count == 4
 
 
 def test_generate_random_suffix(client, app):
@@ -143,7 +148,7 @@ def test_generate_random_suffix(client, app):
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
-        assert count == 2
+        assert count == 4
 
 
 def test_shortener_string_required(client):
@@ -221,7 +226,7 @@ def test_create_duplicate_name_conflict(client, app):
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
-        assert count == 1
+        assert count == 3
 
 
 def test_update_url(client):
@@ -312,7 +317,7 @@ def test_delete_url(client, app):
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
-        assert count == 0
+        assert count == 2
 
 
 def test_delete_only_owned_url(client, app):

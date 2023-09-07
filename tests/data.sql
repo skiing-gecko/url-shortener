@@ -5,5 +5,6 @@ VALUES ('test', 'pbkdf2:sha256:50000$TCI4GzcX$0de171a4f4dac32e3364c7ddc7c14f3e2f
         '53117e6dee7463659a73c29ba125b8be86481ec586269f7cca3045375c6bfc5b');
 
 INSERT INTO urls (url_name, shortener_string, original_url, creator_id, created)
-VALUES
-    ('test url', 'testing', 'https://example.com', 1, '2023-08-27 00:00:00');
+VALUES ('test url', 'testing', 'https://example.com', 1, '2023-08-27 00:00:00'),
+       ('Example 1', 'exampleOne', 'https://example.com', 1, '2023-09-07 00:00:00'),
+       ('Example 2', 'exampleTwo', 'https://example.com', 1, '2023-09-07 00:00:00');

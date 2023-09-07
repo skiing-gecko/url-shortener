@@ -30,7 +30,7 @@ def test_creator_required(app, client, auth):
     assert client.post("/1/delete").status_code == 403
 
 
-@pytest.mark.parametrize("path", ("/2/update", "/2/delete"))
+@pytest.mark.parametrize("path", ("/4/update", "/4/delete"))
 def test_exists_required(client, auth, path):
     auth.login()
     assert client.post(path).status_code == 404
@@ -50,7 +50,7 @@ def test_create(client, auth, app):
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
-        assert count == 2
+        assert count == 4
 
 
 def test_create_long_url_required(client, auth, app):
@@ -68,7 +68,7 @@ def test_create_long_url_required(client, auth, app):
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
-        assert count == 1
+        assert count == 3
 
 
 def test_handle_empty_suffix(client, auth, app):
@@ -85,7 +85,7 @@ def test_handle_empty_suffix(client, auth, app):
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
-        assert count == 2
+        assert count == 4
 
 
 def test_update(client, auth, app):
@@ -118,4 +118,4 @@ def test_require_unique_suffix(client, auth, app):
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
-        assert count == 1
+        assert count == 3
