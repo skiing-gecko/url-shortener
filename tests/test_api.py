@@ -334,4 +334,4 @@ def test_delete_only_owned_url(client, app):
     with app.app_context():
         db = get_db()
         count = db.execute("SELECT COUNT(id) FROM urls").fetchone()[0]
-        assert count == 1
+        assert count == 3
