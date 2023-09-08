@@ -24,17 +24,18 @@
           <div class="container">
             <div class="shadow card mb-4">
               <div class="card-body text-start">
-                <h3 class="card-title">{{ url['url_name'] }}</h3>
+                <h2 class="card-title">{{ url['url_name'] }}</h2>
                 <div class="input-group mb-3">
                   <span class="input-group-text">Short URL</span>
-                  <input type="text" class="form-control font-monospace" readonly
+                  <input type="text" aria-label="Short URL" class="form-control font-monospace" readonly
                          value="127.0.0.1:5000/url/{{ url['shortener_string'] }}">
                   <span class="input-group-text copy-button"><i onclick="copy_to_clipboard(this)"
                                                                 class="bi bi-clipboard text-primary"></i></span>
                 </div>
                 <div class="input-group">
                   <span class="input-group-text">Long URL</span>
-                  <input type="text" class="form-control font-monospace" readonly value="{{ url['original_url'] }}">
+                  <input type="text" aria-label="Long URL" class="form-control font-monospace" readonly
+                         value="{{ url['original_url'] }}">
                   <span class="input-group-text copy-button"><i onclick="copy_to_clipboard(this)"
                                                                 class="bi bi-clipboard text-primary"></i></span>
                 </div>
@@ -47,7 +48,7 @@
                     </form>
                   </div>
                   <div class="col text-end">
-                    <a class="btn btn-primary" href=""><i class="bi bi-pencil-square"></i></a>
+                    <a aria-label="Edit URL" class="btn btn-primary" href=""><i class="bi bi-pencil-square"></i></a>
                   </div>
                 </div>
               </div>
