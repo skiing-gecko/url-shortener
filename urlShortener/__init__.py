@@ -52,4 +52,11 @@ def create_app(test_config=None):
 
     app.register_blueprint(account.bp)
 
+    @app.after_request
+    def set_csp_header(response):
+        response.headers[
+            "Content-Security-Policy"
+        ] = "default-src 'self' cdn.jsdelivr.net; script-src 'self' cdn.jsdelivr.net; style-src 'self' cdn.jsdelivr.net"
+        return response
+
     return app
