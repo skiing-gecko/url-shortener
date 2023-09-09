@@ -54,9 +54,10 @@ def create_app(test_config=None):
 
     @app.after_request
     def set_csp_header(response):
-        response.headers[
-            "Content-Security-Policy"
-        ] = "default-src 'self' cdn.jsdelivr.net; script-src 'self' cdn.jsdelivr.net; style-src 'self' cdn.jsdelivr.net"
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self' cdn.jsdelivr.net; script-src 'self' cdn.jsdelivr.net; style-src 'self' "
+            "cdn.jsdelivr.net; img-src 'self' data: cdn.jsdelivr.net"
+        )
         return response
 
     return app
