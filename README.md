@@ -35,3 +35,9 @@ Create URL page (light)
 
 ![Create URL page](./docs/images/create_url_page_dark.png)
 Create URL page (dark)
+
+![Mobile dark](./docs/images/mobile_dark.png)
+Mobile (dark)
+
+![Mobile light](./docs/images/mobile_light.png)
+Mobile (light)
